@@ -1,0 +1,22 @@
+import json
+
+def dataEcho(event, context):
+    # TODO implement
+    #print("DEBUG: RUnning", event)
+    try:
+        recievedDataRaw = json.dumps(event)
+        recievedData = json.loads(recievedDataRaw)
+        print(recievedData['first'],recievedData['last'])
+    except:
+        return {
+        'statusCode': 400,
+        'body': json.dumps('Something went terribly wrong!!, did you add the message??'),
+        'requestRecieved': recievedDataRaw + 'Got Nothing!!'
+        }
+        exit()
+        
+    return {
+        'statusCode': 200,
+        'body': json.dumps('Hi I am '+ recievedData['first']+ ' ' + recievedData['last'] +
+                ' and I am ' +recievedData['age'] +' years old.'  )
+    }
